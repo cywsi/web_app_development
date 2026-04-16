@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 mb-5">
+    <div class="col-lg-8">
+        <div class="glass-card shadow-sm p-4 p-md-5 border-0">
+            <div class="text-center mb-5">
+                <div class="display-3 mb-3">🚀</div>
+                <h2 class="fw-bold">發布專屬新活動</h2>
+                <p class="text-muted fs-5">幾分鐘內就可以建立好專屬於您的活動報名頁面！</p>
+            </div>
+            <form action="{{ url_for('main.create_event') }}" method="POST">
+                
+                <div class="mb-4">
+                    <label for="title" class="form-label fw-bold text-dark">活動名稱 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg bg-light" id="title" name="title" required value="{{ title | default('') }}" placeholder="例如：2026 AI 開發者大會">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="description" class="form-label fw-bold text-dark">活動介紹</label>
+                    <textarea class="form-control bg-light" id="description" name="description" rows="5" placeholder="描述這個活動的亮點、議程以及參加的原因...">{{ description | default('') }}</textarea>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="start_time" class="form-label fw-bold text-dark">開始時間 <span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control form-control-lg bg-light" id="start_time" name="start_time" required value="{{ start_time | default('') }}">
+                    </div>
+                    <div class="col-md-6 mt-3 mt-md-0">
+                        <label for="end_time" class="form-label fw-bold text-dark">結束時間 <span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control form-control-lg bg-light" id="end_time" name="end_time" required value="{{ end_time | default('') }}">
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <label for="capacity" class="form-label fw-bold text-dark">報名名額上限 <span class="text-danger">*</span></label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-people text-muted"></i></span>
+                        <input type="number" class="form-control bg-light border-start-0 ps-0" id="capacity" name="capacity" min="1" required value="{{ capacity | default('') }}" placeholder="例如：100">
+                    </div>
+                    <div class="form-text mt-2"><i class="bi bi-info-circle"></i> 當報名人數達此上限時，系統將主動封鎖報名表單，防止超賣。</div>
+                </div>
+                
+                <hr class="mb-4 opacity-25">
+
+                <div class="d-flex align-items-center justify-content-between">
+                    <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary btn-lg fw-bold px-4 rounded-3">取消</a>
+                    <button type="submit" class="btn btn-primary-custom btn-lg fw-bold px-5">確定發布活動</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
